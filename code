@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+
+class BaseConverter {
+  public:
+    // Function to convert a number from one base to another
+    std::string convert(std::string num, int fromBase, int toBase) {
+      int decimal = toDecimal(num, fromBase);
+      return fromDecimal(decimal, toBase);
+    }
+
+  private:
+    // Function to convert a number from any base to decimal
+    int toDecimal(std::string num, int base) {
+      int decimal = 0;
+      for (int i = 0; i < num.length(); i++) {
+        int digit = digitToValue(num[i]);
+        decimal = decimal * base + digit;
+      }
+      return decimal;
+    }
+
+    // Function to convert a decimal number to any base
+    std::string fromDecimal(int decimal, int base) {
+      std::string num;
+      while (decimal > 0) {
+        int remainder = decimal % base;
+        num = valueToDigit(remainder) + num;
+        decimal /= base;
+      }
+      return num;
+    }
+
+    // Function to convert a digit to its corresponding value (0-15)
+    int digitToValue(char digit) {
+      if (digit >= '0' && digit <= '9') {
+        return digit - '0';
+      } else {
+        return digit - 'A' + 10;
+      }
+    }
+
+    // Function to convert a value (0-15) to its corresponding digit
+    char valueToDig
